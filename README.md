@@ -1,3 +1,3 @@
 # Unity-Wordle
 
-Wordle recreated in Unity C#, in a time-based highscore format.
+Wordle recreated in Unity C#, in a format that values speed over accuracy.
