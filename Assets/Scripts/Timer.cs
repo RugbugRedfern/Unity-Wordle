@@ -12,16 +12,21 @@ public class Timer : MonoBehaviour
 	public static Timer Instance;
 	public static Action OnTimeExpired;
 
-	[SerializeField] float time = 300;
 	[SerializeField] TMP_Text timerText;
 	[SerializeField] Image fillImage;
 
 	float elapsedTime;
 	bool paused;
+	float time;
 
 	void Awake()
 	{
 		Instance = this;
+	}
+
+	void Start()
+	{
+		time = TimeSetManager.Time;
 	}
 
 	void Update()

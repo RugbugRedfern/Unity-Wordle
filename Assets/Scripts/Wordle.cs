@@ -1,5 +1,6 @@
 using DG.Tweening;
 using Newtonsoft.Json;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -15,6 +16,7 @@ public class Wordle : MonoBehaviour
 
 	[SerializeField] RectTransform wordleContainer;
 	[SerializeField] Animator animator;
+	[SerializeField] TMP_Text correctAnswerText;
 	[SerializeField] TMP_Text winText;
 	[SerializeField] TMP_Text winIncreaseText;
 
@@ -172,7 +174,7 @@ public class Wordle : MonoBehaviour
 	void CompleteGame(bool won)
 	{
 		paused = true;
-		StartCoroutine(I_PlayClearAnimation(2f));
+		StartCoroutine(I_PlayClearAnimation(2f, won));
 
 		if(!won)
 			return;
@@ -193,21 +195,30 @@ public class Wordle : MonoBehaviour
 	}
 
 	// play an animation of the wordle board sliding out and back in, clearing when it's off screen
-	IEnumerator I_PlayClearAnimation(float delay)
+	IEnumerator I_PlayClearAnimation(float delay, bool won)
 	{
 		// pause the timer so it doesn't go down while the animation is playing
 		Timer.Instance.Pause();
 
 		yield return new WaitForSeconds(delay);
 
-		wordleContainer.DOAnchorPosY(Screen.height, 1f).SetEase(Ease.InExpo);
+		wordleContainer.DOAnchorPosX((Screen.width + wordleContainer.rect.width) / 2f, 1f).SetEase(Ease.InExpo);
 
 		yield return new WaitForSeconds(1f);
 
-		Clear();
+		if(!won)
+		{
+			correctAnswerText.DOFade(1f, 0.3f);
+			yield return new WaitForSeconds(2.3f);
+			correctAnswerText.DOFade(0f, 0.3f);
+			yield return new WaitForSeconds(0.3f);
+		}
 
-		wordleContainer.DOAnchorPosY(-Screen.height, 0f);
-		wordleContainer.DOAnchorPosY(0, 1f).SetEase(Ease.OutExpo);
+		Clear();
+		Keyboard.Instance.Clear();
+
+		wordleContainer.DOAnchorPosX(-(Screen.width + wordleContainer.rect.width) / 2f, 0f);
+		wordleContainer.DOAnchorPosX(0, 1f).SetEase(Ease.OutExpo);
 
 		yield return new WaitForSeconds(1f);
 
@@ -228,6 +239,7 @@ public class Wordle : MonoBehaviour
 
 		// choose a new current word
 		currentWord = wordData.answers[Random.Range(0, wordData.answers.Length)];
+		correctAnswerText.text = $"The word was\n<size=60>{currentWord.ToUpper()}</size>";
 		Debug.Log(currentWord);
 
 		// calculate the occurrences of each letter in the word

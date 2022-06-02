@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
@@ -6,6 +7,8 @@ using UnityEngine;
 // a row of the wordle board
 public class Row : MonoBehaviour
 {
+	public static event Action OnSubmit;
+
 	[SerializeField] LetterBox[] letterBoxes;
 
 	public bool Full => inputIndex == letterBoxes.Length;
@@ -79,5 +82,7 @@ public class Row : MonoBehaviour
 		{
 			letterBoxes[i].SetState(letterStates[i]);
 		}
+
+		OnSubmit?.Invoke();
 	}
 }
