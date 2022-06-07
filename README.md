@@ -2,6 +2,12 @@
 
 Wordle recreated in Unity C#, in a format that values speed over accuracy.
 
+## How to Play
+1. Download the game
+   * Download Build.zip from the latest release https://github.com/RugbugRedfern/Unity-Wordle/releases/tag/Latest
+   * Extract the ZIP folder.
+   * Run Wordle.exe inside.
+
 ## How to Build
 
 1. Install Unity
