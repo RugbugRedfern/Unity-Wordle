@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-// allows the game to be restarted while in progress for demonstration purposes
+/// <summary>
+/// Allows the game to be restarted while in progress by pressing CTRL + SHIFT + R for demonstration purposes
+/// </summary>
 public class RestartGame : MonoBehaviour
 {
 	void Update()

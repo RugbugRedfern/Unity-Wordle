@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// a keyboard which displays missing keys
+/// <summary>
+/// An in-game keyboard which displays missing keys
+/// </summary>
 public class Keyboard : MonoBehaviour
 {
 	public static Keyboard Instance;
@@ -27,7 +29,9 @@ public class Keyboard : MonoBehaviour
 		Generate();
 	}
 
-	// clear all the keys on the keyboard and generate a new one
+	/// <summary>
+	/// Clear all the keys on the keyboard and generate a new one
+	/// </summary>
 	public void Clear()
 	{
 		foreach(var row in rows)
@@ -41,7 +45,9 @@ public class Keyboard : MonoBehaviour
 		Generate();
 	}
 
-	// generate the keys on the keyboard
+	/// <summary>
+	/// Generate the keys on the keyboard
+	/// </summary>
 	void Generate()
 	{
 		for(int i = 0; i < layout.Length; i++)

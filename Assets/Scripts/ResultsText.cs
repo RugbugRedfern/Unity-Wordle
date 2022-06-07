@@ -1,7 +1,9 @@
 using TMPro;
 using UnityEngine;
 
-// displays the results at the end of the game
+/// <summary>
+/// Displays the results at the end of the game
+/// </summary>
 public class ResultsText : MonoBehaviour
 {
 	void Start()
@@ -14,6 +16,9 @@ public class ResultsText : MonoBehaviour
 		Timer.OnTimeExpired -= OnTimeExpired;
 	}
 
+	/// <summary>
+	/// Called then the game timer has expired. Updates the results text with the player's score
+	/// </summary>
 	void OnTimeExpired()
 	{
 		GetComponent<TMP_Text>().text = $"Time Expired\n\nScore: {Wordle.Instance.GetWins()}\n\nPress Enter to Restart";

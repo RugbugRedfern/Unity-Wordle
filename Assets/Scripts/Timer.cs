@@ -6,7 +6,9 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-// handles the countdown timer for the game
+/// <summary>
+/// Handles the countdown timer for the game
+/// </summary>
 public class Timer : MonoBehaviour
 {
 	public static Timer Instance;

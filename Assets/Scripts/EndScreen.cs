@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-// handles the screen that displays at the end of the game
+/// <summary>
+/// Handles the screen that displays at the end of the game
+/// </summary>
 public class EndScreen : MonoBehaviour
 {
 	[SerializeField] GameObject gameScreen;
@@ -25,6 +27,9 @@ public class EndScreen : MonoBehaviour
 		endScreen.SetActive(false);
 	}
 
+	/// <summary>
+	/// Hide the game and show the end screen, and prepare for the user to restart
+	/// </summary>
 	void OnTimeExpired()
 	{
 		gameScreen.SetActive(false);
@@ -32,6 +37,9 @@ public class EndScreen : MonoBehaviour
 		InputManager.OnSubmit += OnSubmit;
 	}
 
+	/// <summary>
+	/// Called when the user presses enter while the end screen is open. Restarts the game
+	/// </summary>
 	void OnSubmit()
 	{
 		InputManager.OnSubmit -= OnSubmit;

@@ -5,7 +5,9 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-// an individual key on the keyboard, which will turn gray when it's found missing
+/// <summary>
+/// An individual key on the in-game keyboard, which will turn gray when it's found missing
+/// </summary>
 public class KeyboardKeyBox : MonoBehaviour
 {
 	[SerializeField] TMP_Text text;
@@ -13,6 +15,10 @@ public class KeyboardKeyBox : MonoBehaviour
 
 	char key;
 
+	/// <summary>
+	/// Construct the KeyboardKeyBox
+	/// </summary>
+	/// <param name="key">The key for the key box to represent on the keyboard</param>
 	public void Initialize(char key)
 	{
 		this.key = key;
@@ -29,6 +35,9 @@ public class KeyboardKeyBox : MonoBehaviour
 		Row.OnSubmit -= OnSubmit;
 	}
 
+	/// <summary>
+	/// Called when enter is pressed. Update the visuals based on the missing letters
+	/// </summary>
 	void OnSubmit()
 	{
 		if(Wordle.ConfirmedMissingLetters.Contains(key))

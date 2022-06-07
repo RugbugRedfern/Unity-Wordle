@@ -9,7 +9,9 @@ using TMPro;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-// handles the game logic and score tracking
+/// <summary>
+/// Handles the game logic and score tracking
+/// </summary>
 public class Wordle : MonoBehaviour
 {
 	public static Wordle Instance { get; private set; }
@@ -64,7 +66,10 @@ public class Wordle : MonoBehaviour
 		Clear();
 	}
 
-	// if the user presses a key, try to add it to the current row
+	/// <summary>
+	/// Called when a letter is pressed. If the pllayer presses a key, try to add it to the current row
+	/// </summary>
+	/// <param name="letter">The letter that was pressed</param>
 	void OnLetter(KeyCode letter)
 	{
 		if(paused)
@@ -73,13 +78,17 @@ public class Wordle : MonoBehaviour
 		rows[rowIndex].TryAddLetter(letter);
 	}
 
-	// if the user presses the delete key, delete a letter from the row
+	/// <summary>
+	/// Called when the delete key is pressed. If the player presses the delete key, delete a letter from the row
+	/// </summary>
 	void OnDelete()
 	{
 		rows[rowIndex].DeleteLetter();
 	}
 
-	// if the user presses the submit key, submit or clear if the game is over
+	/// <summary>
+	/// Called when the submit key is pressed. If the player presses the submit key, submit or clear if the game is over
+	/// </summary>
 	void OnSubmit()
 	{
 		if(paused)
@@ -88,7 +97,11 @@ public class Wordle : MonoBehaviour
 		rows[rowIndex].Submit();
 	}
 
-	// validate a row and return the state of each letter in the row
+	/// <summary>
+	/// Validate a row and return the state of each letter in the row
+	/// </summary>
+	/// <param name="content">The content of the row to validate</param>
+	/// <returns>An array of LetterStates, which correspond to LetterBoxes in a row</returns>
 	public LetterState[] ValidateRow(string content)
 	{
 		LetterState[] letterStates = new LetterState[content.Length];
@@ -171,6 +184,10 @@ public class Wordle : MonoBehaviour
 		return letterStates;
 	}
 
+	/// <summary>
+	/// Called to complete the game. This happens when a player has submitted the final row, or guessed correctly
+	/// </summary>
+	/// <param name="won">Whether the player won or not</param>
 	void CompleteGame(bool won)
 	{
 		paused = true;
@@ -194,7 +211,11 @@ public class Wordle : MonoBehaviour
 		return wins;
 	}
 
-	// play an animation of the wordle board sliding out and back in, clearing when it's off screen
+	/// <summary>
+	/// Play an animation of the wordle board sliding out and back in, clearing when it's off screen
+	/// </summary>
+	/// <param name="delay">The time in seconds to wait before playing the animation</param>
+	/// <param name="won">Whether the player won or not</param>
 	IEnumerator I_PlayClearAnimation(float delay, bool won)
 	{
 		// pause the timer so it doesn't go down while the animation is playing
@@ -226,7 +247,9 @@ public class Wordle : MonoBehaviour
 		Timer.Instance.Resume();
 	}
 
-	// clear the entire wordle board and generate a new word
+	/// <summary>
+	/// Completely reset the Wordle board and generate a new word
+	/// </summary>
 	void Clear()
 	{
 		// clear all the rows
@@ -259,7 +282,9 @@ public class Wordle : MonoBehaviour
 		paused = false;
 	}
 
-	// class for all the wordle data, loaded from a JSON file
+	/// <summary>
+	/// Container for all the Wordle data, loaded from a JSON file
+	/// </summary>
 	class WordData
 	{
 		public string[] answers;

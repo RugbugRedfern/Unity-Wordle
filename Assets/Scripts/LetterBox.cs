@@ -5,7 +5,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 
-// an individual letter of a row
+/// <summary>
+/// An individual letter of a row
+/// </summary>
 public class LetterBox : MonoBehaviour
 {
 	[SerializeField] Style style;
@@ -20,28 +22,38 @@ public class LetterBox : MonoBehaviour
 
 	Sequence revealSequence;
 
+	/// <summary>
+	/// Construct the LetterBox
+	/// </summary>
+	/// <param name="letterIndexInRow">The index of this letter box in the row that created it</param>
 	public void Initialize(int letterIndexInRow)
 	{
 		this.letterIndexInRow = letterIndexInRow;
 	}
 
-	// set the letter and state
+	/// <summary>
+	/// Set the letter and state
+	/// </summary>
+	/// <param name="letter">The letter to assign</param>
+	/// <param name="state">The state to assign</param>
 	public void SetLetter(KeyCode letter, LetterState state)
 	{
 		// set the data
 		Letter = letter;
-		SetState(state);
+		SetAnimatedState(state);
 
 		// update the UI
 		PlayTypeAnimation();
 		text.text = Letter.ToString().ToUpper();
 	}
 
-	// completely reset the letterbox
+	/// <summary>
+	/// Completely reset the letterbox
+	/// </summary>
 	public void Clear()
 	{
 		// reset the data
-		SetState(LetterState.Empty);
+		SetAnimatedState(LetterState.Empty);
 		Letter = KeyCode.None;
 
 		// reset the UI
@@ -50,9 +62,11 @@ public class LetterBox : MonoBehaviour
 		DOTween.Complete(all.transform);
 	}
 
-	// assign a state to this letterbox, and update the UI accordingly.
-	// like if a letter is missing or correct.
-	public void SetState(LetterState state)
+	/// <summary>
+	/// Assign a state to this letterbox. Play an animation if it's available
+	/// </summary>
+	/// <param name="state">The state to assign</param>
+	public void SetAnimatedState(LetterState state)
 	{
 		if(state == LetterState.Invalid)
 		{
@@ -64,26 +78,33 @@ public class LetterBox : MonoBehaviour
 		}
 		else
 		{
-			ApplyState(state);
+			SetState(state);
 		}
 	}
 
-	// apply a state, updating the UI accordingly
-	void ApplyState(LetterState state)
+	/// <summary>
+	/// Apply a state instantly, updating the UI accordingly
+	/// </summary>
+	/// <param name="state">The state to assign</param>
+	void SetState(LetterState state)
 	{
 		background.color = style.GetLetterColor(state);
 		background.sprite = style.GetBackgroundSprite(state);
 		State = state;
 	}
 
-	// play the animation for when a letter is typed out
+	/// <summary>
+	/// Play the animation for when a letter is typed out
+	/// </summary>
 	void PlayTypeAnimation()
 	{
 		all.transform.DOScale(1.4f, 0f);
 		all.transform.DOScale(1f, 0.3f).SetEase(Ease.OutExpo);
 	}
 
-	// play the animation for when a letter is not allowed
+	/// <summary>
+	/// Play the animation for when a letter is not allowed
+	/// </summary>
 	void PlayInvalidAnimation()
 	{
 		var seq = DOTween.Sequence();
@@ -95,8 +116,10 @@ public class LetterBox : MonoBehaviour
 		seq.Play();
 	}
 
-	// play the animation for revealing the result once the word
-	// has been submitted
+	/// <summary>
+	/// play the animation for revealing the result once the word has been submitted
+	/// </summary>
+	/// <param name="state">The state to set the LetterBox to while it is hidden in the middle of the animation</param>
 	void PlayRevealAnimation(LetterState state)
 	{
 		revealSequence = DOTween.Sequence();
@@ -104,7 +127,7 @@ public class LetterBox : MonoBehaviour
 		revealSequence.Append(all.DOScaleY(0.001f, 0.2f));
 		revealSequence.AppendCallback(() =>
 		{
-			ApplyState(state);
+			SetState(state);
 		});
 		revealSequence.Append(all.DOScaleY(1f, 0.2f));
 		revealSequence.Play();

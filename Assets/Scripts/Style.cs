@@ -4,7 +4,9 @@ using UnityEngine;
 
 public enum LetterState { Empty, Missing, Somewhere, Correct, Invalid, PreviouslyUsed };
 
-// supplies the graphics for the wordle board
+/// <summary>
+/// Supplies the graphics for the Wordle board
+/// </summary>
 [CreateAssetMenu(menuName = "Style")]
 public class Style : ScriptableObject
 {

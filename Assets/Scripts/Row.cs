@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 
-// a row of the wordle board
+/// <summary>
+/// A row of the Wordle board, which contains letters
+/// </summary>
 public class Row : MonoBehaviour
 {
 	public static event Action OnSubmit;
@@ -47,7 +49,9 @@ public class Row : MonoBehaviour
 		return true;
 	}
 
-	// completely reset the row
+	/// <summary>
+	/// Completely reset the row
+	/// </summary>
 	public void Clear()
 	{
 		for(int i = 0; i < letterBoxes.Length; i++)
@@ -58,7 +62,9 @@ public class Row : MonoBehaviour
 		inputIndex = 0;
 	}
 
-	// delete the last letter from the row
+	/// <summary>
+	/// Delete the last letter from the row
+	/// </summary>
 	public void DeleteLetter()
 	{
 		inputIndex--;
@@ -66,7 +72,9 @@ public class Row : MonoBehaviour
 		letterBoxes[inputIndex].Clear();
 	}
 
-	// convert the row to a string and validate it
+	/// <summary>
+	/// Validate the row and update the UI
+	/// </summary>
 	public void Submit()
 	{
 		// convert the row into a string
@@ -80,7 +88,7 @@ public class Row : MonoBehaviour
 		LetterState[] letterStates = Wordle.Instance.ValidateRow(sb.ToString());
 		for(int i = 0; i < letterBoxes.Length; i++)
 		{
-			letterBoxes[i].SetState(letterStates[i]);
+			letterBoxes[i].SetAnimatedState(letterStates[i]);
 		}
 
 		OnSubmit?.Invoke();

@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-// a button which loads the game
+/// <summary>
+/// A button which loads the game
+/// </summary>
 public class PlayButton : MonoBehaviour
 {
 	public void Play()
