@@ -52,6 +52,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   text: {fileID: 6927418144661662739}
   background: {fileID: 6927418143570351669}
+  style: {fileID: 11400000, guid: f44dfb8eaba43644aa9e91494370a59d, type: 2}
 --- !u!1 &6927418143570351671
 GameObject:
   m_ObjectHideFlags: 0

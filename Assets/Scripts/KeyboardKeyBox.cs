@@ -6,12 +6,13 @@ using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
-/// An individual key on the in-game keyboard, which will turn gray when it's found missing
+/// An individual key on the in-game keyboard, which will update its color according to the letter states on the wordle board
 /// </summary>
 public class KeyboardKeyBox : MonoBehaviour
 {
 	[SerializeField] TMP_Text text;
 	[SerializeField] Image background;
+	[SerializeField] Style style;
 
 	char key;
 
@@ -36,13 +37,24 @@ public class KeyboardKeyBox : MonoBehaviour
 	}
 
 	/// <summary>
-	/// Called when enter is pressed. Update the visuals based on the missing letters
+	/// Called when enter is pressed. Update the visuals based on the letter state
 	/// </summary>
-	void OnSubmit()
+	void OnSubmit(string letters, LetterState[] letterStates)
 	{
-		if(Wordle.ConfirmedMissingLetters.Contains(key))
+		letters = letters.ToLower();
+		for(int i = 0; i < letters.Length; i++)
 		{
-			background.gameObject.SetActive(false);
+			if(letters[i] == key)
+			{
+				if(letterStates[i] == LetterState.Missing)
+				{
+					background.gameObject.SetActive(false);
+				}
+				else
+				{
+					background.color = style.GetLetterColor(letterStates[i]);
+				}
+			}
 		}
 	}
 }

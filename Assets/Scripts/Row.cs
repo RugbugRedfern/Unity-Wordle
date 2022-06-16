@@ -9,7 +9,7 @@ using UnityEngine;
 /// </summary>
 public class Row : MonoBehaviour
 {
-	public static event Action OnSubmit;
+	public static event Action<string, LetterState[]> OnSubmit;
 
 	[SerializeField] LetterBox[] letterBoxes;
 
@@ -85,12 +85,13 @@ public class Row : MonoBehaviour
 		}
 
 		// validate the row, and assign the states to the letter boxes
-		LetterState[] letterStates = Wordle.Instance.ValidateRow(sb.ToString());
+		string rowAsString = sb.ToString();
+		LetterState[] letterStates = Wordle.Instance.ValidateRow(rowAsString);
 		for(int i = 0; i < letterBoxes.Length; i++)
 		{
 			letterBoxes[i].SetAnimatedState(letterStates[i]);
 		}
 
-		OnSubmit?.Invoke();
+		OnSubmit?.Invoke(rowAsString, letterStates);
 	}
 }
