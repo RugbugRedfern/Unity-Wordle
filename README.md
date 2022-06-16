@@ -1,6 +1,6 @@
 # Unity-Wordle
 
-Wordle recreated in Unity C#, in a format that values speed over accuracy.
+Wordle recreated in Unity C#, in a format that values speed over accuracy. Players have six attempts to guess the hidden word using clues based on previous guesses. Green means the letter is in the correct place, yellow means it is in the wrong place but it is somewhere in the word, and gray means the letter is not in the word at all. Use your deductive reasoning and knowledge of words to find as many hidden words as possible before the time runs out.
 
 ## How to Play
 1. Download the game
